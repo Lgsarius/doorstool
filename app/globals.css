@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4b5563;
+  --sidebar-bg: #ffffff;
+  --hover-bg: #f4f4f5;
+  --border: #e5e7eb;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+[data-theme='dark'] {
+  --background: #09090b;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --sidebar-bg: #18181b;
+  --hover-bg: #27272a;
+  --border: #27272a;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+}
+
+@layer components {
+  body {
+    @apply bg-[var(--background)] text-[var(--text-primary)];
+  }
+
+  .sidebar {
+    @apply fixed left-0 top-0 h-screen 
+           flex flex-col 
+           border-r border-[var(--border)]
+           bg-[var(--sidebar-bg)]
+           shadow-[var(--shadow)]
+           transition-all duration-300 ease-in-out;
+    width: 280px;
+    padding: 1.5rem 1rem;
+  }
+
+  .sidebar.collapsed {
+    @apply w-20;
+  }
+
+  .toggle-btn {
+    @apply p-2 rounded-lg 
+           text-[var(--text-secondary)]
+           hover:bg-[var(--hover-bg)]
+           transition-colors duration-200
+           self-end;
+  }
+
+  .nav-links {
+    @apply flex flex-col gap-2 mt-8;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-4 
+           px-4 py-3 rounded-lg
+           text-[var(--text-secondary)]
+           hover:bg-[var(--hover-bg)]
+           transition-all duration-200
+           font-medium;
+  }
+
+  .nav-item span {
+    @apply whitespace-nowrap;
+  }
+
+  .theme-toggle {
+    @apply mt-auto flex items-center gap-4 
+           px-4 py-3 rounded-lg
+           text-[var(--text-secondary)]
+           hover:bg-[var(--hover-bg)]
+           transition-all duration-200;
+  }
+
+  .main-content {
+    @apply min-h-screen 
+           transition-all duration-300 ease-in-out
+           bg-[var(--background)]
+           text-[var(--text-primary)];
+    margin-left: 280px;
+    padding: 2rem;
+  }
+
+  .sidebar.collapsed ~ .main-content {
+    margin-left: 5rem;
+  }
+
+  /* Active state for nav items */
+  .nav-item.active {
+    @apply bg-[var(--hover-bg)] 
+           text-[var(--text-primary)];
+  }
+
+  /* Hover animations */
+  .nav-item:hover, 
+  .theme-toggle:hover {
+    @apply transform scale-[0.98];
+  }
+
+  /* Icon styles */
+  .nav-item svg,
+  .theme-toggle svg,
+  .toggle-btn svg {
+    @apply transition-transform duration-200;
+  }
+
+  .nav-item:hover svg,
+  .theme-toggle:hover svg {
+    @apply transform scale-110;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg
+           bg-blue-600 text-white
+           hover:bg-blue-700
+           transition-colors duration-200
+           font-medium;
+  }
+
+  .card {
+    @apply p-6 rounded-lg
+           bg-[var(--sidebar-bg)]
+           border border-[var(--border)]
+           shadow-md;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg
+           bg-[var(--hover-bg)] text-[var(--text-primary)]
+           hover:bg-[var(--border)]
+           transition-colors duration-200
+           font-medium;
+  }
+}
